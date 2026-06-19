@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sergeevna · Multivarka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #060507;
+            --panel: #141018;
+            --panel-2: #1d1824;
+            --line: #44394f;
+            --acid: #9eff72;
+            --paper: #d1c7a8;
+            --rust: #ff9147;
+            --hot: #ff4263;
+            --chalk: #f6f0d8;
+            --ink: #110f14;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            -webkit-text-size-adjust: 100%;
+            font-size: 15px;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "IBM Plex Mono", "JetBrains Mono", "Courier New", monospace;
+            background:
+                radial-gradient(circle at top left, rgba(255, 145, 71, 0.16), transparent 28%),
+                radial-gradient(circle at 85% 12%, rgba(158, 255, 114, 0.12), transparent 22%),
+                linear-gradient(135deg, #020203 0%, #08070b 32%, #0c0a10 100%);
+            color: var(--chalk);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    rgba(255, 255, 255, 0.03) 0,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 4px
+                );
+            opacity: 0.28;
+            mix-blend-mode: soft-light;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.06), transparent 16%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04), transparent 18%);
+            filter: blur(30px);
+            opacity: 0.35;
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: min(1100px, calc(100vw - 24px));
+            margin: 0 auto;
+            padding: 18px 0 44px;
+            display: grid;
+            gap: 22px;
+        }
+
+        .masthead {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(300px, 520px) minmax(0, 1fr);
+            gap: 14px;
+            align-items: start;
+        }
+
+        .masthead-left,
+        .masthead-right {
+            display: flex;
+        }
+
+        .masthead-left {
+            justify-content: flex-start;
+            padding-top: 14px;
+        }
+
+        .masthead-right {
+            justify-content: flex-end;
+            padding-top: 10px;
+        }
+
+        .brand-block {
+            background: linear-gradient(180deg, rgba(26, 22, 33, 0.92), rgba(14, 12, 18, 0.92));
+            border: 3px solid var(--line);
+            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.48);
+            padding: 18px 22px 22px;
+            transform: rotate(0.35deg);
+            animation: floatIn 0.6s ease-out;
+        }
+
+        .eyebrow,
+        .tagline,
+        .paper-title,
+        .status-tag,
+        .tape {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .eyebrow {
+            margin: 0 0 10px;
+            color: var(--rust);
+            font-size: 0.75rem;
+        }
+
+        .brand-block h1 {
+            margin: 0;
+            font-size: clamp(2.2rem, 7vw, 4.8rem);
+            line-height: 0.92;
+            color: var(--chalk);
+            word-break: break-word;
+        }
+
+        .tagline {
+            margin: 14px 0 0;
+            color: var(--paper);
+            font-size: 0.9rem;
+            max-width: 30rem;
+            word-wrap: break-word;
+        }
+
+        .tape,
+        .status-tag,
+        .paper-title {
+            display: inline-flex;
+            align-items: center;
+            min-height: 36px;
+            padding: 6px 12px;
+            border: 2px solid rgba(0, 0, 0, 0.42);
+            box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.32);
+            font-size: 0.68rem;
+            white-space: nowrap;
+        }
+
+        .tape {
+            background: #c7d486;
+            color: #1b200e;
+            transform: rotate(-2.8deg);
+        }
+
+        .status-tag {
+            background: #34111d;
+            color: #ffd7df;
+            transform: rotate(2.1deg);
+            text-align: right;
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 66, 99, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 66, 99, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 66, 99, 0); }
+        }
+
+        .links-section {
+            background: linear-gradient(180deg, rgba(25, 21, 30, 0.96), rgba(10, 9, 12, 0.97));
+            border: 3px solid #362f40;
+            box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.52);
+            padding: 22px;
+            position: relative;
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .links-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.05) 18%, transparent 24%),
+                radial-gradient(circle at bottom right, rgba(255, 145, 71, 0.08), transparent 28%);
+        }
+
+        .links-title {
+            position: relative;
+            z-index: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--rust);
+            margin: 0 0 18px;
+            text-align: center;
+        }
+
+        .links-grid {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .service-button {
+            appearance: none;
+            border: 3px solid #3b1f0d;
+            background: linear-gradient(180deg, #ff9b55, #df612b);
+            color: #1d0f07;
+            padding: 18px 28px;
+            font: inherit;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.46);
+            transform: rotate(-0.6deg);
+            transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease, background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            animation: buttonAppear 0.5s ease backwards;
+        }
+
+        .service-button:nth-child(1) { animation-delay: 0.05s; }
+        .service-button:nth-child(2) { animation-delay: 0.1s; }
+        .service-button:nth-child(3) { animation-delay: 0.15s; }
+        .service-button:nth-child(4) { animation-delay: 0.2s; }
+        .service-button:nth-child(5) { animation-delay: 0.25s; }
+        .service-button:nth-child(6) { animation-delay: 0.3s; }
+        .service-button:nth-child(7) { animation-delay: 0.35s; }
+
+        .service-button:hover {
+            transform: translate(-2px, -2px) rotate(-0.6deg);
+            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.46);
+            background: linear-gradient(180deg, #ffb37a, #e8703a);
+            filter: brightness(1.1);
+        }
+
+        .service-button:active {
+            transform: translate(3px, 3px) rotate(-0.6deg);
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.46);
+        }
+
+        .bottom-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.8fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .paper-note {
+            padding: 20px 18px;
+            color: var(--ink);
+            background:
+                linear-gradient(180deg, rgba(228, 220, 188, 0.98), rgba(192, 180, 138, 0.98));
+            border: 2px solid rgba(50, 41, 20, 0.44);
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.36);
+            line-height: 1.5;
+            font-size: 0.85rem;
+            word-wrap: break-word;
+            animation: floatIn 0.7s ease-out;
+        }
+
+        .note-main {
+            transform: rotate(-0.85deg);
+            animation-delay: 0.2s;
+        }
+
+        .note-side {
+            transform: rotate(1.05deg);
+            animation-delay: 0.4s;
+        }
+
+        .paper-note p {
+            margin: 10px 0 0;
+        }
+
+        .paper-title {
+            background: rgba(46, 32, 22, 0.92);
+            color: #fff0d2;
+        }
+
+        .site-footer {
+            position: relative;
+            z-index: 1;
+            width: min(1100px, calc(100vw - 24px));
+            margin: 28px auto 0;
+            padding: 22px 20px 30px;
+            text-align: center;
+            border-top: 2px solid var(--line);
+            color: var(--paper);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .footer-credits {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .footer-credits a {
+            color: var(--rust);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-credits a:hover {
+            color: var(--acid);
+        }
+
+        .footer-links {
+            margin-top: 14px;
+        }
+
+        .footer-links button,
+        .footer-links a {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--paper);
+            padding: 6px 16px;
+            margin: 0 6px;
+            font-family: inherit;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .footer-links button:hover,
+        .footer-links a:hover {
+            background: var(--line);
+            color: var(--chalk);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--panel);
+            border: 3px solid var(--line);
+            box-shadow: 14px 14px 0 rgba(0,0,0,0.65);
+            max-width: 620px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            color: var(--chalk);
+            transform: rotate(-0.4deg);
+            font-size: 0.9rem;
+        }
+
+        .modal-header {
+            background: var(--panel-2);
+            border-bottom: 2px solid var(--line);
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--acid);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .modal-close {
+            background: none;
+            border: 2px solid var(--line);
+            color: var(--chalk);
+            font-size: 1.7rem;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--line);
+        }
+
+        .modal-body {
+            padding: 22px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .modal-body a {
+            color: var(--rust);
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 8px 16px;
+            margin-top: 10px;
+        }
+
+        .config-label {
+            color: var(--rust);
+            font-weight: 700;
+        }
+
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(14px) rotate(0deg); }
+            100% { opacity: 1; transform: translateY(0) rotate(0.35deg); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes buttonAppear {
+            0% { opacity: 0; transform: scale(0.9) rotate(-0.6deg); }
+            100% { opacity: 1; transform: scale(1) rotate(-0.6deg); }
+        }
+
+        @media (max-width: 980px) {
+            .masthead {
+                grid-template-columns: 1fr;
+            }
+            .masthead-left,
+            .masthead-right {
+                justify-content: flex-start;
+                padding-top: 0;
+            }
+            .brand-block {
+                order: -1;
+            }
+            .bottom-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .shell {
+                width: min(100vw - 14px, 1100px);
+                padding-top: 8px;
+                gap: 16px;
+            }
+            .links-section,
+            .brand-block,
+            .paper-note {
+                box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.42);
+            }
+            .brand-block {
+                padding: 16px 18px 18px;
+                transform: none;
+            }
+            .status-tag,
+            .tape {
+                transform: none;
+            }
+            .service-button {
+                padding: 14px 22px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .brand-block h1 {
+                font-size: clamp(1.8rem, 11vw, 2.6rem);
+            }
+            .tagline {
+                font-size: 0.8rem;
+            }
+            .service-button {
+                font-size: 0.9rem;
+                padding: 12px 18px;
+                transform: none;
+            }
+            .links-grid {
+                gap: 10px;
+            }
+            .paper-note {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="shell" id="main-shell">
+    <div class="masthead">
+        <div class="masthead-left">
+            <span class="tape">Twitch streamer</span>
+        </div>
+        <div class="brand-block">
+            <div class="eyebrow">Multivarka Production</div>
+            <h1>SERGEEVNA</h1>
+            <div class="tagline">Шутеры, коопы, общение с чатом. Подписывайся и залетай на стрим!</div>
+        </div>
+        <div class="masthead-right">
+            <span class="status-tag">🔴 Live soon</span>
+        </div>
+    </div>
+
+    <div class="links-section">
+        <div class="links-title">Service Links</div>
+        <div class="links-grid">
+            <a href="https://twitch.tv/nadin_sergeevna" target="_blank" class="service-button">TWITCH</a>
+            <a href="https://t.me/KapitanGG" target="_blank" class="service-button">TELEGRAM</a>
+            <a href="https://www.youtube.com/@Капитаныч" target="_blank" class="service-button">YOUTUBE</a>
+            <a href="https://discord.com/" target="_blank" class="service-button">DISCORD</a>
+            <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" class="service-button">TIKTOK</a>
+            <a href="https://donatex.gg/donate/kapitanych" target="_blank" class="service-button">DONATEX</a>
+            <a href="https://new.donatepay.ru/@Kapitan" target="_blank" class="service-button">DONATEPAY</a>
+        </div>
+    </div>
+
+    <div class="bottom-row">
+        <div class="paper-note note-main">
+            <span class="paper-title">📋 Правила чата</span>
+            <p>Никакого спама, оскорблений и личных данных. Модератор всегда прав. Ознакомься перед тем, как писать в чат.</p>
+            <button id="show-rules-btn" style="margin-top:10px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:6px 14px; font-family:inherit; cursor:pointer; font-size:0.75rem;">Читать правила</button>
+        </div>
+        <div class="paper-note note-side">
+            <span class="paper-title">⚙️ Конфиг ПК</span>
+            <p>Железо Sergeevna: Ryzen 7 5700X, RTX 3080, 32 ГБ ОЗУ. Подробности внутри.</p>
+            <button id="show-config-btn" style="margin-top:10px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:6px 14px; font-family:inherit; cursor:pointer; font-size:0.75rem;">Смотреть конфиг</button>
+        </div>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-credits">
+        <span>🎮 <a href="https://twitch.tv/nadin_sergeevna" target="_blank">Sergeevna</a></span>
+        <span>💻 <a href="https://t.me/multicooker01" target="_blank">Multivarka</a></span>
+    </div>
+    <div class="footer-links">
+        <a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
+        <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+        <a href="https://discord.com/" target="_blank">Discord</a>
+        <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+        <button id="lang-toggle">EN</button>
+    </div>
+    <p style="margin-top:16px;">© <span id="current-year"></span> Sergeevna. All rights reserved.</p>
+</footer>
+
+<div class="modal" id="rules-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Правила чата Twitch</h2>
+            <button class="modal-close" data-close="rules-modal">×</button>
+        </div>
+        <div class="modal-body" id="rules-body"></div>
+    </div>
+</div>
+
+<div class="modal" id="config-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Конфигурация ПК Sergeevna</h2>
+            <button class="modal-close" data-close="config-modal">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="config-grid">
+                <span class="config-label">Процессор:</span><span>AMD Ryzen 7 5700X</span>
+                <span class="config-label">Материнская плата:</span><span>Gigabyte B550 Aorus Elite V2</span>
+                <span class="config-label">ОЗУ:</span><span>Kingston Fury Renegade 8GB x4 3600</span>
+                <span class="config-label">Видеокарта:</span><span>Gigabyte RTX 3080 Gaming OC 10G</span>
+                <span class="config-label">SSD:</span><span>M.2 NVME 1TB Gen4x4</span>
+                <span class="config-label">HDD:</span><span>Toshiba 500GB x2</span>
+                <span class="config-label">Блок питания:</span><span>1000W</span>
+                <span class="config-label">Охлаждение:</span><span>IWONGOU AR12PRO ARGB 240</span>
+                <span class="config-label">Наушники:</span><span>MARSHALL MAJOR V / KZ ZVX</span>
+                <span class="config-label">Микрофон:</span><span>Fifine Ampligame A8</span>
+                <span class="config-label">Мышь:</span><span>AJAZZ AJ159 Apex</span>
+                <span class="config-label">Клавиатура:</span><span>LEAVEN K550 механика</span>
+                <span class="config-label">Монитор:</span><span>Xiaomi G27 165Гц (x2)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const translations = {
+            ru: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
+                 <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
+                 <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
+                 <li>Запрещены провокации, оскорбления и агрессия.</li>
+                 <li>Запрещена публикация шок-контента и интимного контента.</li>
+                 <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
+                 <li>Запрещено выпрашивать VIP/модерку/подписки.</li></ul>
+                 <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>`,
+            en: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
+                 <ul><li>No spam, flood, or repetitive messages.</li>
+                 <li>No advertising of your own projects or third-party resources.</li>
+                 <li>No provocations, insults, or aggression.</li>
+                 <li>No shock or explicit content.</li>
+                 <li>Do not share personal data (addresses, phones…).</li>
+                 <li>Do not beg for VIP/mod/subscriptions.</li></ul>
+                 <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
+        };
+
+        let currentLang = localStorage.getItem('preferredLang') || 'ru';
+
+        function applyLanguage(lang) {
+            const rulesBody = document.getElementById('rules-body');
+            if (rulesBody && translations[lang]) {
+                rulesBody.innerHTML = translations[lang];
+            }
+            document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
+            localStorage.setItem('preferredLang', lang);
+            currentLang = lang;
+        }
+
+        applyLanguage(currentLang);
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            const newLang = currentLang === 'ru' ? 'en' : 'ru';
+            applyLanguage(newLang);
+        });
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('show-rules-btn').addEventListener('click', () => openModal('rules-modal'));
+        document.getElementById('show-config-btn').addEventListener('click', () => openModal('config-modal'));
+
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modalId = btn.dataset.close;
+                if (modalId) closeModal(modalId);
+            });
+        });
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal.id);
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAllModals();
+        });
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    })();
+</script>
+</body>
+</html>
