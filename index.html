@@ -6,20 +6,29 @@
     <title>Sergeevna · Multivarka</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            color-scheme: dark;
-            --bg: #060507;
-            --panel: #141018;
-            --panel-2: #1d1824;
-            --line: #44394f;
-            --acid: #9eff72;
-            --paper: #d1c7a8;
-            --rust: #ff9147;
-            --hot: #ff4263;
-            --chalk: #f6f0d8;
-            --ink: #110f14;
+            color-scheme: light;
+            --bg: #fff0f5;
+            --panel: #ffffff;
+            --panel-2: #ffe4ec;
+            --line: #f7b0c6;
+            --accent: #ff85a2;
+            --accent2: #d47b9b;
+            --rust: #ff7093;
+            --paper: #6b4e5e;
+            --chalk: #4a2c3b;
+            --ink: #3b1f2b;
+            --hot: #ff4d79;
+            --acid: #c44569;
+            --button-bg: #ffb6c9;
+            --button-border: #e8879e;
+            --tag-bg: #ffe0eb;
+            --tag-text: #a6425c;
+            --footer-bg: #ffe8f0;
         }
 
         * {
@@ -36,13 +45,91 @@
 
         body {
             min-height: 100vh;
-            font-family: "IBM Plex Mono", "JetBrains Mono", "Courier New", monospace;
+            font-family: "IBM Plex Mono", "Courier New", monospace;
             background:
-                radial-gradient(circle at top left, rgba(255, 145, 71, 0.16), transparent 28%),
-                radial-gradient(circle at 85% 12%, rgba(158, 255, 114, 0.12), transparent 22%),
-                linear-gradient(135deg, #020203 0%, #08070b 32%, #0c0a10 100%);
+                radial-gradient(circle at 15% 20%, rgba(255, 182, 193, 0.25), transparent 35%),
+                radial-gradient(circle at 80% 75%, rgba(212, 123, 155, 0.2), transparent 30%),
+                linear-gradient(145deg, #fff5f7 0%, #ffe4ec 50%, #ffdae5 100%);
             color: var(--chalk);
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Маленькие котики на фоне */
+        .cats-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .cat-float {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.2;
+            animation: floatCat 18s infinite ease-in-out;
+            user-select: none;
+        }
+        .cat-float:nth-child(1) {
+            top: 12%;
+            left: 8%;
+            font-size: 32px;
+            animation-delay: 0s;
+            animation-duration: 22s;
+        }
+        .cat-float:nth-child(2) {
+            top: 75%;
+            left: 15%;
+            font-size: 24px;
+            animation-delay: -5s;
+            animation-duration: 19s;
+        }
+        .cat-float:nth-child(3) {
+            top: 20%;
+            right: 12%;
+            font-size: 36px;
+            animation-delay: -9s;
+            animation-duration: 24s;
+        }
+        .cat-float:nth-child(4) {
+            top: 60%;
+            right: 8%;
+            font-size: 22px;
+            animation-delay: -3s;
+            animation-duration: 20s;
+        }
+        .cat-float:nth-child(5) {
+            top: 40%;
+            left: 45%;
+            font-size: 30px;
+            animation-delay: -7s;
+            animation-duration: 21s;
+        }
+        .cat-float:nth-child(6) {
+            top: 88%;
+            left: 70%;
+            font-size: 26px;
+            animation-delay: -12s;
+            animation-duration: 23s;
+        }
+
+        @keyframes floatCat {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(25px, -30px) rotate(8deg);
+            }
+            50% {
+                transform: translate(-15px, -55px) rotate(-6deg);
+            }
+            75% {
+                transform: translate(-20px, -20px) rotate(10deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
         }
 
         body::before {
@@ -51,27 +138,14 @@
             inset: 0;
             pointer-events: none;
             background:
-                repeating-linear-gradient(
-                    to bottom,
-                    rgba(255, 255, 255, 0.03) 0,
-                    rgba(255, 255, 255, 0.03) 1px,
+                repeating-linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.5) 0,
+                    rgba(255, 255, 255, 0.5) 1px,
                     transparent 1px,
-                    transparent 4px
-                );
-            opacity: 0.28;
-            mix-blend-mode: soft-light;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background:
-                radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.06), transparent 16%),
-                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04), transparent 18%);
-            filter: blur(30px);
-            opacity: 0.35;
+                    transparent 4px);
+            opacity: 0.2;
+            mix-blend-mode: overlay;
+            z-index: 0;
         }
 
         .shell {
@@ -107,10 +181,11 @@
         }
 
         .brand-block {
-            background: linear-gradient(180deg, rgba(26, 22, 33, 0.92), rgba(14, 12, 18, 0.92));
+            background: linear-gradient(180deg, rgba(255, 245, 250, 0.98), rgba(255, 235, 242, 0.98));
             border: 3px solid var(--line);
-            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.48);
+            box-shadow: 8px 8px 0 rgba(255, 133, 162, 0.25);
             padding: 18px 22px 22px;
+            border-radius: 28px;
             transform: rotate(0.35deg);
             animation: floatIn 0.6s ease-out;
         }
@@ -121,21 +196,25 @@
         .status-tag,
         .tape {
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
         }
 
         .eyebrow {
             margin: 0 0 10px;
-            color: var(--rust);
+            color: var(--accent2);
             font-size: 0.75rem;
+            font-weight: 700;
         }
 
         .brand-block h1 {
             margin: 0;
+            font-family: "Nunito", "IBM Plex Mono", sans-serif;
             font-size: clamp(2.2rem, 7vw, 4.8rem);
             line-height: 0.92;
-            color: var(--chalk);
+            color: #c94b6c;
             word-break: break-word;
+            font-weight: 800;
+            text-shadow: 2px 2px 0 rgba(255, 133, 162, 0.3);
         }
 
         .tagline {
@@ -152,38 +231,47 @@
             display: inline-flex;
             align-items: center;
             min-height: 36px;
-            padding: 6px 12px;
-            border: 2px solid rgba(0, 0, 0, 0.42);
-            box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.32);
+            padding: 6px 14px;
+            border: 2px solid rgba(255, 133, 162, 0.35);
+            box-shadow: 4px 4px 0 rgba(255, 133, 162, 0.2);
             font-size: 0.68rem;
             white-space: nowrap;
+            border-radius: 30px;
+            font-weight: 700;
         }
 
         .tape {
-            background: #c7d486;
-            color: #1b200e;
+            background: #ffeef4;
+            color: #8f4458;
             transform: rotate(-2.8deg);
         }
 
         .status-tag {
-            background: #34111d;
-            color: #ffd7df;
+            background: #fff0f3;
+            color: #c44569;
             transform: rotate(2.1deg);
             text-align: right;
-            animation: statusPulse 2s infinite;
+            animation: statusPulse 2.5s infinite;
         }
 
         @keyframes statusPulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 66, 99, 0.5); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 66, 99, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 66, 99, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 77, 121, 0.45);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(255, 77, 121, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 77, 121, 0);
+            }
         }
 
         .links-section {
-            background: linear-gradient(180deg, rgba(25, 21, 30, 0.96), rgba(10, 9, 12, 0.97));
-            border: 3px solid #362f40;
-            box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.52);
+            background: linear-gradient(180deg, rgba(255, 250, 252, 0.98), rgba(255, 240, 245, 0.98));
+            border: 3px solid #f9c4d6;
+            box-shadow: 8px 8px 0 rgba(255, 133, 162, 0.2);
             padding: 22px;
+            border-radius: 32px;
             position: relative;
             animation: fadeUp 0.6s ease-out;
         }
@@ -194,8 +282,8 @@
             inset: 0;
             pointer-events: none;
             background:
-                linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.05) 18%, transparent 24%),
-                radial-gradient(circle at bottom right, rgba(255, 145, 71, 0.08), transparent 28%);
+                radial-gradient(circle at bottom right, rgba(255, 182, 193, 0.25), transparent 35%);
+            border-radius: 32px;
         }
 
         .links-title {
@@ -204,9 +292,10 @@
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: var(--rust);
+            color: var(--accent2);
             margin: 0 0 18px;
             text-align: center;
+            font-weight: 700;
         }
 
         .links-grid {
@@ -220,44 +309,60 @@
 
         .service-button {
             appearance: none;
-            border: 3px solid #3b1f0d;
-            background: linear-gradient(180deg, #ff9b55, #df612b);
-            color: #1d0f07;
+            border: 3px solid var(--button-border);
+            background: linear-gradient(180deg, #ffb6c9, #ff8da1);
+            color: #fff;
             padding: 18px 28px;
-            font: inherit;
+            font-family: "Nunito", "IBM Plex Mono", sans-serif;
             font-size: 1.2rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.46);
-            transform: rotate(-0.6deg);
+            box-shadow: 6px 6px 0 rgba(212, 123, 155, 0.35);
+            border-radius: 40px;
+            transform: rotate(-0.4deg);
             transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease, background 0.2s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             animation: buttonAppear 0.5s ease backwards;
+            text-shadow: 1px 1px 0 rgba(180, 60, 90, 0.4);
         }
 
-        .service-button:nth-child(1) { animation-delay: 0.05s; }
-        .service-button:nth-child(2) { animation-delay: 0.1s; }
-        .service-button:nth-child(3) { animation-delay: 0.15s; }
-        .service-button:nth-child(4) { animation-delay: 0.2s; }
-        .service-button:nth-child(5) { animation-delay: 0.25s; }
-        .service-button:nth-child(6) { animation-delay: 0.3s; }
-        .service-button:nth-child(7) { animation-delay: 0.35s; }
+        .service-button:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+        .service-button:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .service-button:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+        .service-button:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+        .service-button:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+        .service-button:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+        .service-button:nth-child(7) {
+            animation-delay: 0.35s;
+        }
 
         .service-button:hover {
-            transform: translate(-2px, -2px) rotate(-0.6deg);
-            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.46);
-            background: linear-gradient(180deg, #ffb37a, #e8703a);
-            filter: brightness(1.1);
+            transform: translate(-2px, -2px) rotate(-0.4deg);
+            box-shadow: 10px 10px 0 rgba(212, 123, 155, 0.4);
+            background: linear-gradient(180deg, #ffc1d4, #ff99b0);
+            filter: brightness(1.05);
         }
 
         .service-button:active {
-            transform: translate(3px, 3px) rotate(-0.6deg);
-            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.46);
+            transform: translate(3px, 3px) rotate(-0.4deg);
+            box-shadow: 2px 2px 0 rgba(212, 123, 155, 0.4);
         }
 
         .bottom-row {
@@ -270,10 +375,10 @@
         .paper-note {
             padding: 20px 18px;
             color: var(--ink);
-            background:
-                linear-gradient(180deg, rgba(228, 220, 188, 0.98), rgba(192, 180, 138, 0.98));
-            border: 2px solid rgba(50, 41, 20, 0.44);
-            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.36);
+            background: linear-gradient(180deg, #fff9fb, #fff0f5);
+            border: 2px solid #f7c6d6;
+            box-shadow: 6px 6px 0 rgba(255, 133, 162, 0.2);
+            border-radius: 24px;
             line-height: 1.5;
             font-size: 0.85rem;
             word-wrap: break-word;
@@ -295,8 +400,9 @@
         }
 
         .paper-title {
-            background: rgba(46, 32, 22, 0.92);
-            color: #fff0d2;
+            background: rgba(255, 220, 232, 0.9);
+            color: #a6425c;
+            border-radius: 30px;
         }
 
         .site-footer {
@@ -306,10 +412,30 @@
             margin: 28px auto 0;
             padding: 22px 20px 30px;
             text-align: center;
-            border-top: 2px solid var(--line);
+            border-top: 2px solid #f7c0d0;
             color: var(--paper);
             font-size: 0.85rem;
-            opacity: 0.8;
+            opacity: 0.9;
+            background: rgba(255, 240, 245, 0.5);
+            border-radius: 32px 32px 0 0;
+        }
+
+        /* Большой кот внизу */
+        .big-cat {
+            font-size: clamp(60px, 12vw, 100px);
+            margin: 10px 0 0;
+            animation: purr 1.8s infinite alternate ease-in-out;
+            display: block;
+            user-select: none;
+        }
+
+        @keyframes purr {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.06);
+            }
         }
 
         .footer-credits {
@@ -321,13 +447,14 @@
         }
 
         .footer-credits a {
-            color: var(--rust);
+            color: var(--accent2);
             text-decoration: none;
+            font-weight: 700;
             transition: color 0.2s;
         }
 
         .footer-credits a:hover {
-            color: var(--acid);
+            color: var(--hot);
         }
 
         .footer-links {
@@ -336,25 +463,28 @@
 
         .footer-links button,
         .footer-links a {
-            background: transparent;
-            border: 1px solid var(--line);
-            color: var(--paper);
-            padding: 6px 16px;
+            background: #fff5fa;
+            border: 2px solid #f7b0c6;
+            color: var(--ink);
+            padding: 6px 18px;
             margin: 0 6px;
             font-family: inherit;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             cursor: pointer;
-            transition: background 0.2s, color 0.2s;
+            border-radius: 30px;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
             text-decoration: none;
             display: inline-block;
+            font-weight: 700;
         }
 
         .footer-links button:hover,
         .footer-links a:hover {
-            background: var(--line);
-            color: var(--chalk);
+            background: #ffdae5;
+            border-color: #ff85a2;
+            color: #a6425c;
         }
 
         .modal {
@@ -362,8 +492,8 @@
             position: fixed;
             inset: 0;
             z-index: 100;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(6px);
+            background: rgba(255, 230, 240, 0.8);
+            backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -374,21 +504,23 @@
         }
 
         .modal-content {
-            background: var(--panel);
-            border: 3px solid var(--line);
-            box-shadow: 14px 14px 0 rgba(0,0,0,0.65);
+            background: #fff;
+            border: 3px solid #f7b0c6;
+            box-shadow: 14px 14px 0 rgba(255, 133, 162, 0.3);
+            border-radius: 32px;
             max-width: 620px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
-            color: var(--chalk);
+            color: var(--ink);
             transform: rotate(-0.4deg);
             font-size: 0.9rem;
         }
 
         .modal-header {
-            background: var(--panel-2);
-            border-bottom: 2px solid var(--line);
+            background: #ffe8f0;
+            border-bottom: 2px solid #f7b0c6;
+            border-radius: 32px 32px 0 0;
             padding: 18px 22px;
             display: flex;
             justify-content: space-between;
@@ -398,24 +530,26 @@
         .modal-header h2 {
             margin: 0;
             font-size: 1.3rem;
-            color: var(--acid);
+            color: #c44569;
             text-transform: uppercase;
             letter-spacing: 0.08em;
+            font-family: "Nunito", sans-serif;
         }
 
         .modal-close {
             background: none;
-            border: 2px solid var(--line);
-            color: var(--chalk);
+            border: 2px solid #f7b0c6;
+            color: #c44569;
             font-size: 1.7rem;
             width: 40px;
             height: 40px;
+            border-radius: 50%;
             cursor: pointer;
             transition: background 0.2s;
         }
 
         .modal-close:hover {
-            background: var(--line);
+            background: #ffe0ec;
         }
 
         .modal-body {
@@ -425,7 +559,7 @@
         }
 
         .modal-body a {
-            color: var(--rust);
+            color: #d47b9b;
         }
 
         .config-grid {
@@ -436,23 +570,41 @@
         }
 
         .config-label {
-            color: var(--rust);
+            color: #c44569;
             font-weight: 700;
         }
 
         @keyframes floatIn {
-            0% { opacity: 0; transform: translateY(14px) rotate(0deg); }
-            100% { opacity: 1; transform: translateY(0) rotate(0.35deg); }
+            0% {
+                opacity: 0;
+                transform: translateY(14px) rotate(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0.35deg);
+            }
         }
 
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes buttonAppear {
-            0% { opacity: 0; transform: scale(0.9) rotate(-0.6deg); }
-            100% { opacity: 1; transform: scale(1) rotate(-0.6deg); }
+            0% {
+                opacity: 0;
+                transform: scale(0.9) rotate(-0.4deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(-0.4deg);
+            }
         }
 
         @media (max-width: 980px) {
@@ -481,7 +633,7 @@
             .links-section,
             .brand-block,
             .paper-note {
-                box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.42);
+                box-shadow: 4px 4px 0 rgba(255, 133, 162, 0.2);
             }
             .brand-block {
                 padding: 16px 18px 18px;
@@ -519,24 +671,33 @@
     </style>
 </head>
 <body>
+<!-- Маленькие плавающие котики -->
+<div class="cats-bg" aria-hidden="true">
+    <span class="cat-float">🐈</span>
+    <span class="cat-float">🐱</span>
+    <span class="cat-float">😺</span>
+    <span class="cat-float">🐈‍⬛</span>
+    <span class="cat-float">😸</span>
+    <span class="cat-float">🐾</span>
+</div>
 
 <div class="shell" id="main-shell">
     <div class="masthead">
         <div class="masthead-left">
-            <span class="tape">Twitch streamer</span>
+            <span class="tape" data-i18n="twitch_tag">Twitch streamer</span>
         </div>
         <div class="brand-block">
-            <div class="eyebrow">Multivarka Production</div>
+            <div class="eyebrow" data-i18n="brand_sub">Multivarka Production</div>
             <h1>SERGEEVNA</h1>
-            <div class="tagline">Шутеры, коопы, общение с чатом. Подписывайся и залетай на стрим!</div>
+            <div class="tagline" data-i18n="tagline">Шутеры, коопы, общение с чатом. Подписывайся и залетай на стрим!</div>
         </div>
         <div class="masthead-right">
-            <span class="status-tag">🔴 Live soon</span>
+            <span class="status-tag" data-i18n="live_tag">🔴 Live soon</span>
         </div>
     </div>
 
     <div class="links-section">
-        <div class="links-title">Service Links</div>
+        <div class="links-title" data-i18n="service_title">Ссылки</div>
         <div class="links-grid">
             <a href="https://twitch.tv/nadin_sergeevna" target="_blank" class="service-button">TWITCH</a>
             <a href="https://t.me/KapitanGG" target="_blank" class="service-button">TELEGRAM</a>
@@ -550,14 +711,14 @@
 
     <div class="bottom-row">
         <div class="paper-note note-main">
-            <span class="paper-title">📋 Правила чата</span>
-            <p>Никакого спама, оскорблений и личных данных. Модератор всегда прав. Ознакомься перед тем, как писать в чат.</p>
-            <button id="show-rules-btn" style="margin-top:10px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:6px 14px; font-family:inherit; cursor:pointer; font-size:0.75rem;">Читать правила</button>
+            <span class="paper-title" data-i18n="rules_title">📋 Правила чата</span>
+            <p data-i18n="rules_short">Никакого спама, оскорблений и личных данных. Модератор всегда прав. Ознакомься перед тем, как писать в чат.</p>
+            <button id="show-rules-btn" style="margin-top:10px; background:var(--ink); color:#fff; border:1px solid var(--ink); padding:6px 14px; font-family:inherit; cursor:pointer; font-size:0.75rem; border-radius:20px;" data-i18n="read_rules">Читать правила</button>
         </div>
         <div class="paper-note note-side">
-            <span class="paper-title">⚙️ Конфиг ПК</span>
-            <p>Железо Sergeevna: Ryzen 7 5700X, RTX 3080, 32 ГБ ОЗУ. Подробности внутри.</p>
-            <button id="show-config-btn" style="margin-top:10px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:6px 14px; font-family:inherit; cursor:pointer; font-size:0.75rem;">Смотреть конфиг</button>
+            <span class="paper-title" data-i18n="config_title">⚙️ Конфиг ПК</span>
+            <p data-i18n="config_short">Железо Sergeevna: Ryzen 7 5700X, RTX 3080, 32 ГБ ОЗУ. Подробности внутри.</p>
+            <button id="show-config-btn" style="margin-top:10px; background:var(--ink); color:#fff; border:1px solid var(--ink); padding:6px 14px; font-family:inherit; cursor:pointer; font-size:0.75rem; border-radius:20px;" data-i18n="view_config">Смотреть конфиг</button>
         </div>
     </div>
 </div>
@@ -574,13 +735,15 @@
         <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
         <button id="lang-toggle">EN</button>
     </div>
-    <p style="margin-top:16px;">© <span id="current-year"></span> Sergeevna. All rights reserved.</p>
+    <!-- БОЛЬШОЙ КОТ В САМОМ НИЗУ -->
+    <span class="big-cat" aria-hidden="true">🐈</span>
+    <p style="margin-top:8px;">© <span id="current-year"></span> Sergeevna. <span data-i18n="rights">All rights reserved.</span></p>
 </footer>
 
 <div class="modal" id="rules-modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Правила чата Twitch</h2>
+            <h2 data-i18n="modal_rules_title">Правила чата Twitch</h2>
             <button class="modal-close" data-close="rules-modal">×</button>
         </div>
         <div class="modal-body" id="rules-body"></div>
@@ -590,24 +753,24 @@
 <div class="modal" id="config-modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Конфигурация ПК Sergeevna</h2>
+            <h2 data-i18n="modal_config_title">Конфигурация ПК Sergeevna</h2>
             <button class="modal-close" data-close="config-modal">×</button>
         </div>
         <div class="modal-body">
             <div class="config-grid">
-                <span class="config-label">Процессор:</span><span>AMD Ryzen 7 5700X</span>
-                <span class="config-label">Материнская плата:</span><span>Gigabyte B550 Aorus Elite V2</span>
-                <span class="config-label">ОЗУ:</span><span>Kingston Fury Renegade 8GB x4 3600</span>
-                <span class="config-label">Видеокарта:</span><span>Gigabyte RTX 3080 Gaming OC 10G</span>
-                <span class="config-label">SSD:</span><span>M.2 NVME 1TB Gen4x4</span>
-                <span class="config-label">HDD:</span><span>Toshiba 500GB x2</span>
-                <span class="config-label">Блок питания:</span><span>1000W</span>
-                <span class="config-label">Охлаждение:</span><span>IWONGOU AR12PRO ARGB 240</span>
-                <span class="config-label">Наушники:</span><span>MARSHALL MAJOR V / KZ ZVX</span>
-                <span class="config-label">Микрофон:</span><span>Fifine Ampligame A8</span>
-                <span class="config-label">Мышь:</span><span>AJAZZ AJ159 Apex</span>
-                <span class="config-label">Клавиатура:</span><span>LEAVEN K550 механика</span>
-                <span class="config-label">Монитор:</span><span>Xiaomi G27 165Гц (x2)</span>
+                <span class="config-label" data-i18n="cpu_label">Процессор:</span><span>AMD Ryzen 7 5700X</span>
+                <span class="config-label" data-i18n="mb_label">Материнская плата:</span><span>Gigabyte B550 Aorus Elite V2</span>
+                <span class="config-label" data-i18n="ram_label">ОЗУ:</span><span>Kingston Fury Renegade 8GB x4 3600</span>
+                <span class="config-label" data-i18n="gpu_label">Видеокарта:</span><span>Gigabyte RTX 3080 Gaming OC 10G</span>
+                <span class="config-label" data-i18n="ssd_label">SSD:</span><span>M.2 NVME 1TB Gen4x4</span>
+                <span class="config-label" data-i18n="hdd_label">HDD:</span><span>Toshiba 500GB x2</span>
+                <span class="config-label" data-i18n="psu_label">Блок питания:</span><span>1000W</span>
+                <span class="config-label" data-i18n="cooler_label">Охлаждение:</span><span>IWONGOU AR12PRO ARGB 240</span>
+                <span class="config-label" data-i18n="headphones_label">Наушники:</span><span>MARSHALL MAJOR V / KZ ZVX</span>
+                <span class="config-label" data-i18n="mic_label">Микрофон:</span><span>Fifine Ampligame A8</span>
+                <span class="config-label" data-i18n="mouse_label">Мышь:</span><span>AJAZZ AJ159 Apex</span>
+                <span class="config-label" data-i18n="keyboard_label">Клавиатура:</span><span>LEAVEN K550 механика</span>
+                <span class="config-label" data-i18n="monitor_label">Монитор:</span><span>Xiaomi G27 165Гц (x2)</span>
             </div>
         </div>
     </div>
@@ -616,34 +779,103 @@
 <script>
     (function() {
         const translations = {
-            ru: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
-                 <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
-                 <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
-                 <li>Запрещены провокации, оскорбления и агрессия.</li>
-                 <li>Запрещена публикация шок-контента и интимного контента.</li>
-                 <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
-                 <li>Запрещено выпрашивать VIP/модерку/подписки.</li></ul>
-                 <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>`,
-            en: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
-                 <ul><li>No spam, flood, or repetitive messages.</li>
-                 <li>No advertising of your own projects or third-party resources.</li>
-                 <li>No provocations, insults, or aggression.</li>
-                 <li>No shock or explicit content.</li>
-                 <li>Do not share personal data (addresses, phones…).</li>
-                 <li>Do not beg for VIP/mod/subscriptions.</li></ul>
-                 <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
+            ru: {
+                twitch_tag: 'Twitch стример',
+                brand_sub: 'Multivarka Production',
+                tagline: 'Шутеры, коопы, общение с чатом. Подписывайся и залетай на стрим!',
+                live_tag: '🔴 Скоро стрим',
+                service_title: 'Ссылки',
+                rules_title: '📋 Правила чата',
+                rules_short: 'Никакого спама, оскорблений и личных данных. Модератор всегда прав. Ознакомься перед тем, как писать в чат.',
+                read_rules: 'Читать правила',
+                config_title: '⚙️ Конфиг ПК',
+                config_short: 'Железо Sergeevna: Ryzen 7 5700X, RTX 3080, 32 ГБ ОЗУ. Подробности внутри.',
+                view_config: 'Смотреть конфиг',
+                rights: 'Все права защищены.',
+                modal_rules_title: 'Правила чата Twitch',
+                modal_config_title: 'Конфигурация ПК Sergeevna',
+                cpu_label: 'Процессор:',
+                mb_label: 'Материнская плата:',
+                ram_label: 'ОЗУ:',
+                gpu_label: 'Видеокарта:',
+                ssd_label: 'SSD:',
+                hdd_label: 'HDD:',
+                psu_label: 'Блок питания:',
+                cooler_label: 'Охлаждение:',
+                headphones_label: 'Наушники:',
+                mic_label: 'Микрофон:',
+                mouse_label: 'Мышь:',
+                keyboard_label: 'Клавиатура:',
+                monitor_label: 'Монитор:',
+                rules_full: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
+                     <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
+                     <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
+                     <li>Запрещены провокации, оскорбления и агрессия.</li>
+                     <li>Запрещена публикация шок-контента и интимного контента.</li>
+                     <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
+                     <li>Запрещено выпрашивать VIP/модерку/подписки.</li></ul>
+                     <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>`
+            },
+            en: {
+                twitch_tag: 'Twitch streamer',
+                brand_sub: 'Multivarka Production',
+                tagline: 'Shooters, co-op, chatting. Subscribe and join the stream!',
+                live_tag: '🔴 Live soon',
+                service_title: 'Service Links',
+                rules_title: '📋 Chat Rules',
+                rules_short: 'No spam, insults or personal data. Moderator is always right. Read before chatting.',
+                read_rules: 'Read rules',
+                config_title: '⚙️ PC Specs',
+                config_short: 'Sergeevna\'s rig: Ryzen 7 5700X, RTX 3080, 32 GB RAM. Details inside.',
+                view_config: 'View specs',
+                rights: 'All rights reserved.',
+                modal_rules_title: 'Twitch Chat Rules',
+                modal_config_title: 'Sergeevna PC Configuration',
+                cpu_label: 'CPU:',
+                mb_label: 'Motherboard:',
+                ram_label: 'RAM:',
+                gpu_label: 'GPU:',
+                ssd_label: 'SSD:',
+                hdd_label: 'HDD:',
+                psu_label: 'PSU:',
+                cooler_label: 'Cooler:',
+                headphones_label: 'Headphones:',
+                mic_label: 'Microphone:',
+                mouse_label: 'Mouse:',
+                keyboard_label: 'Keyboard:',
+                monitor_label: 'Monitor:',
+                rules_full: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
+                     <ul><li>No spam, flood, or repetitive messages.</li>
+                     <li>No advertising of your own projects or third-party resources.</li>
+                     <li>No provocations, insults, or aggression.</li>
+                     <li>No shock or explicit content.</li>
+                     <li>Do not share personal data (addresses, phones…).</li>
+                     <li>Do not beg for VIP/mod/subscriptions.</li></ul>
+                     <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
+            }
         };
 
         let currentLang = localStorage.getItem('preferredLang') || 'ru';
 
         function applyLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Обновляем полные правила в модалке
             const rulesBody = document.getElementById('rules-body');
-            if (rulesBody && translations[lang]) {
-                rulesBody.innerHTML = translations[lang];
+            if (rulesBody && translations[lang] && translations[lang].rules_full) {
+                rulesBody.innerHTML = translations[lang].rules_full;
             }
+
             document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
             localStorage.setItem('preferredLang', lang);
             currentLang = lang;
+            document.documentElement.lang = lang;
         }
 
         applyLanguage(currentLang);
